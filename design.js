@@ -10,10 +10,9 @@ const submitButton = document.getElementsByClassName('submit-button')[0];
 const colorPicker = document.getElementsByClassName('color-picker')[0];
 const pixelCanvas = document.getElementsByClassName('pixel-canvas')[0];
 
-submitButton.addEventListener('click', function(event){
-    event.preventDefault();
-    makeGrid(inputHeight.value, inputWidth.value);
-});
+function paintPixel(evt){
+    console.log('The pixel was painted');
+}
 
 function makeGrid(gridHeight, gridWidth) {
     pixelCanvas.innerHTML = '';
@@ -35,4 +34,12 @@ function makeGrid(gridHeight, gridWidth) {
         iGridRow.insertAdjacentHTML('beforeend', gridRowContent);
     }
 };
+
+pixelCanvas.addEventListener('mousemove', paintPixel);
+
+submitButton.addEventListener('click', function(event){
+    event.preventDefault();
+    makeGrid(inputHeight.value, inputWidth.value);
+});
+
 
