@@ -1,19 +1,21 @@
-// Select color input
-// Select size input
-
-// When size is submitted by the user, call makeGrid()
-
 //Define Selectors
 const inputHeight = document.getElementsByClassName('input-height')[0];
 const inputWidth = document.getElementsByClassName('input-width')[0];
 const submitButton = document.getElementsByClassName('submit-button')[0];
 const colorPicker = document.getElementsByClassName('color-picker')[0];
 const pixelCanvas = document.getElementsByClassName('pixel-canvas')[0];
+let mouseStatus = 'up';
 
+//If the mouse is down, then it paints the pixels
 function paintPixel(evt){
-    console.log('The pixel was painted');
+    if (evt.target.nodeName == 'TD') {
+        if (mouseStatus == 'down') {
+            evt.target.style.backgroundColor = colorPicker.value;
+        }
+    }
 }
 
+//Creates the grid based on the Height and Width input boxes
 function makeGrid(gridHeight, gridWidth) {
     pixelCanvas.innerHTML = '';
 
@@ -35,8 +37,24 @@ function makeGrid(gridHeight, gridWidth) {
     }
 };
 
-pixelCanvas.addEventListener('mousemove', paintPixel);
+//changes the mouse status to down for use with painting pixels
+function mouseStatusDown(evt){
+    evt.preventDefault();
+    mouseStatus = 'down';
+    paintPixel(evt);
+}
 
+//changes the mouse status to up for use with painting pixels
+function mouseStatusUp(evt){
+    evt.preventDefault();
+    mouseStatus = 'up';
+}
+
+pixelCanvas.addEventListener('mousemove', paintPixel); //detects if the mouse is moving on the grid
+pixelCanvas.addEventListener('mousedown', mouseStatusDown); //detects if the mouse is clicked on the grid
+document.body.addEventListener('mouseup', mouseStatusUp) //detects if the mouse has been unclicked anywhere on the document
+
+//calls the makeGrid function when you click submit
 submitButton.addEventListener('click', function(event){
     event.preventDefault();
     makeGrid(inputHeight.value, inputWidth.value);
