@@ -17,23 +17,19 @@ function paintPixel(evt){
 
 //Creates the grid based on the Height and Width input boxes
 function makeGrid(gridHeight, gridWidth) {
-    PIXEL_CANVAS.innerHTML = '';
+    while (PIXEL_CANVAS.firstChild){
+    	PIXEL_CANVAS.removeChild(PIXEL_CANVAS.firstChild);
+    }
 
     //Create the grid rows
     for (let gridRow = 0; gridRow < gridHeight; gridRow++) {
-        PIXEL_CANVAS.insertAdjacentHTML('beforeend', '<tr class="grid-row"></tr>');
-    }
-
-    //Create the content that will go inside each row
-    let gridRowContent = '';
-    for (let i = 0; i < gridWidth; i++) {
-        gridRowContent = gridRowContent + '<td class="grid-cell"></td>';
-    }
-
-    //Add that content to the rows
-    const iGridRows = document.getElementsByClassName('grid-row');
-    for(const iGridRow of iGridRows) {
-        iGridRow.insertAdjacentHTML('beforeend', gridRowContent);
+        const newRow = document.createElement('tr');
+        PIXEL_CANVAS.appendChild(newRow);
+        // insertAdjacentHTML('beforeend', '<tr class="grid-row"></tr>');
+         for (let i = 0; i < gridWidth; i++) {
+             const newCell = document.createElement('td');
+             newRow.appendChild(newCell);
+         }
     }
 };
 
