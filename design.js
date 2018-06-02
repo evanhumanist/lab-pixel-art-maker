@@ -16,18 +16,20 @@ submitButton.addEventListener('click', function(event){
 });
 
 function makeGrid(gridHeight, gridWidth) {
-    //Create the grid rows first
+    pixelCanvas.innerHTML = '';
+
+    //Create the grid rows
     for (let gridRow = 0; gridRow < gridHeight; gridRow++) {
         pixelCanvas.insertAdjacentHTML('beforeend', '<tr class="grid-row"></tr>');
     }
 
-    //Then create the content that will go inside each row
+    //Create the content that will go inside each row
     let gridRowContent = '';
     for (let i = 0; i < gridWidth; i++) {
         gridRowContent = gridRowContent + '<td class="grid-cell"></td>';
     }
 
-    //Finally add that content to the rows
+    //Add that content to the rows
     const iGridRows = document.getElementsByClassName('grid-row');
     for(const iGridRow of iGridRows) {
         iGridRow.insertAdjacentHTML('beforeend', gridRowContent);
